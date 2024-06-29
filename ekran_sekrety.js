@@ -21,13 +21,13 @@ let secrets = [
   "Zdarza mi się flirtować online z osobami z innego miasta, żeby nie ryzykować, że spotkam ich w realnym życiu."
 ];
 
-let playwriteFont, tiny5Font;
+let tiny5Font;
 let textPositions = [];
 let originalPositions = [];
 let bgColor = '#F5D7E3';
+let forgetButton;
 
 function preload() {
-  playwriteFont = loadFont('PlaywriteNL.ttf');
   tiny5Font = loadFont('Tiny5.ttf'); // Load Tiny5 font
 }
 
@@ -66,6 +66,14 @@ function setup() {
 
     yOffset += spacing;
   }
+
+  // Create the forget button
+  forgetButton = createButton('Forget');
+  forgetButton.position(windowWidth - 100, windowHeight - 50); // Adjust position to bottom right corner
+  forgetButton.style('font-family', 'Tiny5'); // Set font to Tiny5
+  forgetButton.style('background-color', '#3B429F'); // Set button background color
+  forgetButton.style('color', '#FFFFFF'); // Set button text color
+  forgetButton.mousePressed(redirectToPage);
 }
 
 function draw() {
@@ -91,4 +99,18 @@ function mouseMoved() {
       tp.y = lerp(tp.y, tp.oy, 0.1);
     }
   }
+}
+
+function redirectToPage() {
+  bgColor = random(['#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E']); // Change background color
+  setTimeout(() => {
+    window.location.href = "https://activistgames.github.io/startingPoints";
+  }, 500); // Delay the redirection to see the color change
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+
+  // Adjust button position when window is resized
+  forgetButton.position(windowWidth - 100, windowHeight - 50);
 }
