@@ -21,26 +21,22 @@ let secrets = [
   "Zdarza mi się flirtować online z osobami z innego miasta, żeby nie ryzykować, że spotkam ich w realnym życiu."
 ];
 
-let tiny5Font;
+let playwriteFont, tiny5Font;
 let textPositions = [];
 let originalPositions = [];
 let bgColor = '#F5D7E3';
 let forgetButton;
+let colors = ['#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E'];
 
 function preload() {
+  playwriteFont = loadFont('PlaywriteNL.ttf');
   tiny5Font = loadFont('Tiny5.ttf'); // Load Tiny5 font
 }
 
 function setup() {
   createCanvas(1920, 1080);
   textAlign(CENTER, CENTER);
-  let colors = [
-    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
-    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
-    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
-    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E'
-  ];
-
+  
   background(bgColor);
   textFont(tiny5Font); // Change font to Tiny5
   textSize(24);
@@ -69,10 +65,11 @@ function setup() {
 
   // Create the forget button
   forgetButton = createButton('Forget');
-  forgetButton.position(windowWidth - 100, windowHeight - 50); // Adjust position to bottom right corner
-  forgetButton.style('font-family', 'Tiny5'); // Set font to Tiny5
-  forgetButton.style('background-color', '#3B429F'); // Set button background color
-  forgetButton.style('color', '#FFFFFF'); // Set button text color
+  forgetButton.position(windowWidth - 150, windowHeight - 50); // Adjust position to bottom right corner
+  forgetButton.style('font-family', 'Tiny5');
+  forgetButton.style('font-size', '24px');
+  forgetButton.style('background-color', colors[0]);
+  forgetButton.style('color', '#fff');
   forgetButton.mousePressed(redirectToPage);
 }
 
@@ -101,16 +98,15 @@ function mouseMoved() {
   }
 }
 
+// Function to redirect to the specified URL
 function redirectToPage() {
-  bgColor = random(['#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E']); // Change background color
+  forgetButton.style('background-color', random(colors)); // Change button color on click
   setTimeout(() => {
     window.location.href = "https://activistgames.github.io/startingPoints";
-  }, 500); // Delay the redirection to see the color change
+  }, 300); // Delay to allow color change effect
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-
-  // Adjust button position when window is resized
-  forgetButton.position(windowWidth - 100, windowHeight - 50);
+  forgetButton.position(windowWidth - 150, windowHeight - 50); // Adjust button position when window is resized
 }
