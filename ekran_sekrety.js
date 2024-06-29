@@ -25,8 +25,6 @@ let playwriteFont, tiny5Font;
 let textPositions = [];
 let originalPositions = [];
 let bgColor = '#F5D7E3';
-let forgetButton;
-let colors = ['#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E'];
 
 function preload() {
   playwriteFont = loadFont('PlaywriteNL.ttf');
@@ -36,7 +34,13 @@ function preload() {
 function setup() {
   createCanvas(1920, 1080);
   textAlign(CENTER, CENTER);
-  
+  let colors = [
+    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
+    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
+    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E', 
+    '#3B429F', '#AA7DCE', '#F4A5AE', '#A8577E'
+  ];
+
   background(bgColor);
   textFont(tiny5Font); // Change font to Tiny5
   textSize(24);
@@ -63,14 +67,26 @@ function setup() {
     yOffset += spacing;
   }
 
-  // Create the forget button
-  forgetButton = createButton('Forget');
-  forgetButton.position(windowWidth - 150, windowHeight - 50); // Adjust position to bottom right corner
-  forgetButton.style('font-family', 'Tiny5');
-  forgetButton.style('font-size', '24px');
-  forgetButton.style('background-color', colors[0]);
-  forgetButton.style('color', '#fff');
-  forgetButton.mousePressed(redirectToPage);
+  // Create forget button
+  button = createButton('forget');
+  button.style('font-family', 'Tiny5');
+  button.style('font-size', '24px');
+  button.style('background-color', '#3B429F');
+  button.style('color', '#F5D7E3');
+  button.style('border', 'none');
+  button.style('padding', '20px 40px');
+  button.position(width - 250, height - 100);
+  button.mousePressed(() => {
+    window.open('https://activistgames.github.io/startingPoints', '_blank');
+  });
+
+  button.mouseOver(() => {
+    button.style('background-color', '#F4A5AE');
+  });
+
+  button.mouseOut(() => {
+    button.style('background-color', '#3B429F');
+  });
 }
 
 function draw() {
@@ -96,17 +112,4 @@ function mouseMoved() {
       tp.y = lerp(tp.y, tp.oy, 0.1);
     }
   }
-}
-
-// Function to redirect to the specified URL
-function redirectToPage() {
-  forgetButton.style('background-color', random(colors)); // Change button color on click
-  setTimeout(() => {
-    window.location.href = "https://activistgames.github.io/startingPoints";
-  }, 300); // Delay to allow color change effect
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  forgetButton.position(windowWidth - 150, windowHeight - 50); // Adjust button position when window is resized
 }
